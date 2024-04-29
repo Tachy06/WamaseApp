@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="pageForm">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+                <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+        <div class="fondo">
+            <h3>Cuantos Kilometros recorrió el auto?</h3>
+            <form action="" method="post">{% csrf_token %}
+                <div class="mb-3">
+                    <label for="km" class="form-label">Kilometraje</label>
+                    <input type="number" name="km" id="km" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Fecha</label>
+                    <input type="date" name="date" id="date" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="drivers" class="form-label">Choferes</label>
+                    <select name="drivers" id="drivers" class="form-control" required>
+                        {% for info in moreInfo %}
+                            {% for user_car in info.usersCar.all %}
+                                <option value="{{ user_car.id }}">{{ user_car.user }}</option>
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Cargar Kilometraje</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+{% load pwa %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin</title>    
+    {% progressive_web_app_meta %}
+    <meta name="description" content="{% block meta_description %}Panel Administrador de Wemasa{% endblock %}">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% if request.user.is_superuser %}
+        <section class="back">
+            <div class="container">
+                <a href="/admin/">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: black;">
+                        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+        <section class="register_admin">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+                        <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="container">
+                <h1 style="margin-bottom: 15px;" class="h1-admin-create">Registrar Un Administrador</h1>
+                <div class="fondo">
+                    <form action="" method="post"> {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre de la persona</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Apellido</label>
+                            <input type="text" id="last_name" name="last_name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="user" class="form-label">Usuario</label>
+                            <input type="text" id="user" name="user" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo</label>
+                            <input type="email" name="email" id="email" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="font-size: 19px; margin-bottom: 10px;">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+</body>
+</html>

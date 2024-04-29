@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}La web oficial de la mecánica Wesaca{% endblock %}">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Register WamaseApp</title>
+</head>
+<body>
+    <main class="register">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+                    <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="container">
+            <div class="fondo">
+                <div class="loguito">
+                    <img src="{% static 'images/register.jpg' %}" alt="register-img" class="img-loguito">
+                </div>
+                <form action="" method="POST"> {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="brand" class="form-label">Marca del carro</label>
+                        <input type="text" id="brand" name="brand" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="year" class="form-label">Año del carro</label>
+                        <input type="number" id="year" name="year" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="license_plate" class="form-label">Placa del carro</label>
+                        <input type="text" id="license_plate" name="license_plate" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="oil">Aceite a usar</label>
+                        <select name="oil" id="oil" class="form-control" required style="border: 2px solid #0044ff;">
+                            <option value="0">Seleccione el tipo de aceite</option>
+                            <option value="1">Havoline</option>
+                            <option value="2">Chevron</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vin" class="form-label">Vin del carro</label>
+                        <input type="number" name="vin" id="vin" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="property" class="form-label">Propietario del carro</label>
+                        <input type="text" name="property" id="property" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo ha asociar</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="drivers" class="form-label">Choferes</label>
+                        <select name="drivers" id="drivers" class="form-control" multiple required>
+                            {% for driver in usersCars %}
+                                <option value="{{ driver.id }}">{{ driver.user }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</body>
+</html>

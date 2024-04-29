@@ -1,0 +1,19 @@
+{
+    "name": "Wesaca App",
+    "short_name": "Wesaca App",
+    "description": "Web privada de Wesaca para sus autos",
+    "icons": [{
+        "src": "/static/images/logo.png",
+        "sizes": "128x128",
+        "type": "image/png"
+    }, {
+        "src": "/static/images/logo.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }],
+    "background_color": "#fff",
+    "theme_color": "#000",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+}

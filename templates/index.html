@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+            <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+{% if car == '' %}
+{% else %}
+    {% if km_journey is not none%}
+        <div class="km_view">
+            <div class="container">
+                <p>Desde {{date}} que fue el cambio de aceite, lleva recorrido {{km_journey}} KM</p>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+<section class="pageMain">
+    <div class="container">
+        <div class="text">
+            <h1>Añadir Kilometraje Diario</h1>
+            <a href="{% url 'KMCarView' %}" class="btn btn-primary" style="margin-bottom: 10px;">Agregar Kilometraje</a>
+        </div>
+    </div>
+</section>
+<section class="pageAceite">
+    <div class="container">
+        <div class="text">
+            <h1>Realizar cambio de aceite</h1>
+            <a href="{% url 'Change_The_Oil' %}" class="btn btn-primary" style="margin-bottom: 10px;">Cambio de aceite</a>
+        </div>
+    </div>
+</section>
+<section class="pagePrices">
+    <div class="container">
+        <div class="text">
+            <h1>Agregar otros gastos</h1>
+            <a href="{% url 'Expenses' %}" class="btn btn-primary" style="margin-bottom: 10px;">Agregar gastos</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

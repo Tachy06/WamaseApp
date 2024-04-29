@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="profile">
+    <div class="container">
+        <div class="fondo">
+            {% if request.user.is_superuser %}
+                <h3>Datos del perfil</h3>
+                <p>Nombre: <span style="font-weight: bold;">{{car.first_name}}</span></p>
+                <p>Apellidos: <span style="font-weight: bold;">{{car.last_name}}</span></p>
+                <p>Usuario: <span style="font-weight: bold;">{{car.username}}</span></p>
+                <p>Email: <span style="font-weight: bold;">{{car.email}}</span></p>
+            {% else %}
+                <h3>Datos del perfil</h3>
+                <form action="" method="post">
+                    <p>Marca: <span style="font-weight: bold;">{{car.first_name}}</span></p>
+                    <p>Placa: <span style="font-weight: bold;">{{car.username}}</span></p>
+                    <p>Modelo: <span style="font-weight: bold;">{{moreinfo.model}}</span></p>
+                    <p>Año: <span style="font-weight: bold;">{{moreinfo.year}}</span></p>
+                    <div class="mb-3">
+                        <p>Aceite que usa</p>
+                        <select name="oil" id="oil" class="form-control" required style="border: 2px solid #0044ff;">
+                            <option value="0">Seleccione el tipo de aceite</option>
+                            <option value="1">Havoline</option>
+                            <option value="2">Chevron</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Modificar</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,588 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    height: 7dvh;
+    width: 100%;
+    box-shadow: 0px 0px 2px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+header .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+header a{
+    /* color: rgb(133, 133, 133); */
+    /* text-shadow: 1px 0 15px black; */
+    color: #000000;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+}
+
+header span{
+    color: #0044ff;
+    padding-left: 3px;
+}
+
+nav{
+    box-shadow: 2px 5px 7px black;
+}
+
+.km_view{
+    height: 8dvh;
+}
+
+.km_view .container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.km_view .container p{
+    padding-top: 10px;
+}
+
+.pageMain{
+    display: flex;
+    height: 38dvh;
+    width: 100%;
+    color: white;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/kilometraje.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pageMain .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pageMain .container .text{
+    text-align: center;
+}
+
+.pageAceite{
+    display: flex;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0, 0.5), rgba(0,0,0,0.5)), url('../images/aceite.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 41dvh;
+}
+
+.pageAceite .container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.pageMain .containerAceite .text{
+    text-align: center;
+}
+
+.register{
+    display: flex;
+    flex-direction: column;
+    height: 140dvh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #0084ff, #00ff55);
+}
+
+.register .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.register .container .img-loguito{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.register .container .fondo{
+    box-shadow: 0px 0px 3px black;
+    width: 350px;
+    height: 950px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(240, 240, 240);
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.register .container .fondo input{
+    background: #ffffff;
+    border: 2px solid #0044ff;
+    color: #000000;
+}
+
+.register .container .h5-register{
+    width: 250px;
+    height: 35px;
+    box-shadow: 0px 1px 3px black;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    /* bottom: 180px; */
+    z-index: 1;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #0084ff, #00ff55);
+}
+
+.login .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.login .container .img-loguito{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.login .container .fondo{
+    box-shadow: 0px 0px 3px black;
+    width: 350px;
+    height: 850px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(240, 240, 240);
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.login .container .fondo input{
+    background: #ffffff;
+    border: 2px solid #0044ff;
+    color: #000000;
+}
+
+.login .container .h5-register{
+    width: 250px;
+    height: 35px;
+    box-shadow: 0px 1px 3px black;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    /* bottom: 180px; */
+    z-index: 1;
+}
+
+.pageForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 90dvh;
+    background: linear-gradient(to bottom, #0084ff, #00ff55);
+}
+
+.pageForm .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pageForm .container .fondo{
+    box-shadow: 0px 0px 4px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 45vh;
+    background: white;
+    width: 400px;
+}
+
+.pageForm .container .fondo_Oil{
+    box-shadow: 0px 0px 6px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 40vh;
+    background: white;
+    border-radius: 10px;
+}
+
+.pageForm .container .fondo input{
+    box-shadow: 0px 0px 7px rgb(0, 81, 255);
+}
+
+.profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    height: 90dvh;
+    background: linear-gradient(to bottom, #0084ff, #00ff55);
+}
+
+.profile .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    margin: auto;
+}
+
+.profile .container .fondo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    height: 380px;
+    width: 350px;
+    box-shadow: 0px 0px 6px black;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.admin{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.admin .container .title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.admin .container .title h3{
+    padding: 10px;
+}
+
+.admin .container .title a{
+    margin: 10px;
+}
+
+.admin .container .cars{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 150px;
+}
+
+.admin .container .cars .users{
+    background-color: white;
+    box-shadow: 0px 0px 4px black;
+    height: auto;
+    width: 80%;
+    margin: 15px;
+    padding: 20px;
+}
+
+.buttons-centered{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.admin .container .cars .users .buttons-centered button{
+    margin: 10px;
+}
+
+.register_admin{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 90dvh;
+}
+
+.register_admin .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: auto;
+}
+
+.register_admin .container .fondo{
+    width: 350px;
+    height: 440px;
+    box-shadow: 0px 0px 10px black;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.register_admin_car{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 120dvh;
+}
+
+.register_admin_car .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.register_admin_car .container .fondo{
+    width: 350px;
+    height: 750px;
+    box-shadow: 0px 0px 10px black;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.h1-admin-create{
+    margin-top: 70px;
+}
+
+.look-for{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.look-for .container .btn-centered{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+}
+
+.admin_look{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90dvh;
+}
+
+.admin_look .container .cars{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.admin_look .container .cars .users{
+    background-color: white;
+    box-shadow: 0px 0px 4px black;
+    height: auto;
+    width: 80%;
+    margin: 15px;
+    padding: 20px;
+}
+
+.admin_look .container .cars .users .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.admin_look .container .cars .users .buttons button{
+    margin: 10px;
+}
+
+.pagePrices{
+    height: 41dvh;
+    width: 100%;
+    display: flex;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/gastos.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+.pagePrices .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-gastos{
+    font-size: 15px;
+}
+
+.chofer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 90dvh;
+}
+
+.chofer .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.expenses{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 90dvh;
+    background: linear-gradient(to bottom, #0084ff, #00ff55);
+}
+
+.expenses .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.expenses .container .fondo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 400px;
+    width: 300px;
+    box-shadow: 0px 0px 4px black;
+    background-color: white;
+    border-radius: 10px;
+}
+@media only screen and (min-width:768px){
+    .pageMain{
+        height: 60dvh;
+    }
+
+    .pageAceite{
+        height: 60dvh;
+    }
+
+    .km_view .container p{
+        padding-top: 8px;
+    }
+
+    .back{
+        display: none;
+    }
+
+    .h1-admin-create{
+        margin-top: 100px;
+    }
+
+    .pageForm .container .fondo{
+        height: 60vh;
+        width: 500px;
+        border-radius: 10px;
+    }
+
+/*     .register_admin .container .fondo{
+        height: 510px;
+    } */
+
+    .profile{
+        height: 90dvh;
+    }
+    
+    .register_admin{
+        height: 110dvh;
+    }
+
+    .btn-gastos{
+        font-size: 16px;
+    }
+
+    .pagePrices{
+        height: 60dvh;
+    }
+}

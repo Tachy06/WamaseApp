@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="pageForm">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+                <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+        <div class="fondo_Oil">
+            <h3 style="margin: 5px 10px;">Fecha del cambio de aceite</h3>
+            <form action="" method="post">{% csrf_token %}
+                <div class="mb-3">
+                    <label for="date" class="form-label">Fecha del cambio</label>
+                    <input type="date" name="date" id="date" value="{{ fecha|date:'Y-m-d' }}" class="form-control fecha-upwards">
+                </div>
+                <button type="submit" class="btn btn-primary">Realizar cambio</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

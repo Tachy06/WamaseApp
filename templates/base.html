@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+{% load pwa %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}La web oficial de la distribuidora Wemasa{% endblock %}">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% progressive_web_app_meta %}
+    {% block title %} <title>WamaseApp</title> {% endblock %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/">Contactanos al <a href="mailto:wamasedev@gmail.com"><span>wamasedev@gmail.com</span></a></a>
+        </div>
+    </header>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a href="/" class="navbar-brand">WamaseApp</a>
+                    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link">Ver gastos</a>
+                            </li>
+                            <div class="dropdown">
+                                <div class="content">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver perfil</button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="padding: 6px;">
+                                        <a href="{% url 'Profile' %}" class="dropdown-item">{{user.username}}</a>
+                                        <a href="{% url 'Logout' %}" class="dropdown-item">Cerrar Sesión</a>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.is_superuser %}
+                                    <li class="nav-item">
+                                        <a href="/admin/" class="nav-link">Panel Admin</a>
+                                    </li>
+                                {% else %}
+                                {% endif %}
+                            {% else %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+    {% block content %}
+    {% endblock %}
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> 
+    <script src="{% static 'js/date.js' %}"></script>
+</body>
+</html>
