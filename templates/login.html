@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -22,17 +23,19 @@
             {% endfor %}
         {% endif %}
         <div class="container">
-            <div class="fondo" style="height: 300px;">
+            <div class="fondo" style="height: 350px;">
                 <div class="loguito">
-                    <img src="{% static 'images/register.jpg' %}" alt="register-img" class="img-loguito">
+                    <img src="{% static 'images/logo.png' %}" alt="register-img" class="img-loguito">
                 </div>
                 <form action="" method="post">{% csrf_token %}
                     <div class="mb-3">
                         <label for="model" class="form-label">Placa del carro</label>
-                        <input type="text" id="license_plate" name="license_plate" class="form-control">
+                        <br>
+                        <input type="text" id="license_plate" name="license_plate" class="form-group mx-sm-5">
                     </div>
-                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    <button type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
                 </form>
+                <p style="margin-top: 10px;">Si no tienes una cuenta registrate <a href="{% url 'Register' %}">aqui</a></p>
             </div>
         </div>
     </section>

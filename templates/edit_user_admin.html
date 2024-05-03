@@ -24,7 +24,7 @@
                 </a>
             </div>
         </section>
-        <section class="register_admin">
+        <section class="modified_user_admin">
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
@@ -42,8 +42,8 @@
                             <input type="text" id="brand" name="brand" class="form-control" value="{{user_info.user.first_name}}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="model" class="form-label">Modelo del carro</label>
-                            <input type="text" id="model" name="model" class="form-control" value="{{user_info.more_info.model}}" required>
+                            <label for="year" class="form-label">Año del carro</label>
+                            <input type="text" id="year" name="year" class="form-control" value="{{user_info.more_info.year}}" required>
                         </div>
                         <div class="mb-3">
                             <label for="license_plate" class="form-label">Placa del carro</label>
@@ -62,10 +62,6 @@
                                     <option value="2" selected>Chevron</option>
                                 {% endif %}
                             </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="year" class="form-label">Año del carro</label>
-                            <input type="number" name="year" id="year" class="form-control" value="{{user_info.more_info.year}}" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo ha asociar</label>

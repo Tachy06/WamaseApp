@@ -1,0 +1,46 @@
+{% extends 'panelAdmin.html' %}
+{% load static %}
+{% load pwa %}
+{% block content %}
+{% if request.user.is_superuser %}
+    <section class="back">
+        <div class="container">
+            <a href="/admin">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: black;">
+                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+{% endif %}
+<section class="expenses_admin">
+    <div class="container">
+        <h1 style="margin-bottom: 15px;">Gastos de {{user.username}}</h1>
+        <table class="table table-bordered"">
+            <thead>
+                <tr>
+                    <th scope="col">En que</th>
+                    <th scope="col">Cuanto</th>
+                    <th scope="col" style="width: 380px;">Cuando</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                    <tr>
+                        <td>{{expense.title}}</td>
+                        <td>${{expense.amount}}</td>
+                        <td>{{expense.date}}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>${{total}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

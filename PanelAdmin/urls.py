@@ -9,4 +9,5 @@ urlpatterns = [
     path('look_for/<str:user_id>/', look_for.as_view(), name='Look_for'),
     path('create_admin/', createSuperUser.as_view(), name='Create_admin'),
     path('createChofer/', createChofer.as_view(), name='createChofer'),
+    path('expenses-Admin/<int:user_id>/', expensesAdmin.as_view(), name='Expenses_Admin'),
 ]

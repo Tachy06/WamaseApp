@@ -12,13 +12,13 @@
     {% endif %}
     <div class="container">
         <div class="fondo_Oil">
-            <h3 style="margin: 5px 10px;">Fecha del cambio de aceite</h3>
+            <h3 style="margin: 5px 10px;">Agregar cambio de aceite</h3>
             <form action="" method="post">{% csrf_token %}
                 <div class="mb-3">
                     <label for="date" class="form-label">Fecha del cambio</label>
                     <input type="date" name="date" id="date" value="{{ fecha|date:'Y-m-d' }}" class="form-control fecha-upwards">
                 </div>
-                <button type="submit" class="btn btn-primary">Realizar cambio</button>
+                <button type="submit" class="btn btn-outline-primary">Agregar cambio</button>
             </form>
         </div>
     </div>

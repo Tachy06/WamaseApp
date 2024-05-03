@@ -14,99 +14,100 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    {% if request.user.is_superuser %}
-        <section class="back">
-            <div class="container">
-                <a href="/">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: black;">
-                        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-                    </svg>
-                </a>
-            </div>
-        </section>
-        <main class="admin">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
-                        <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            <div class="container">
-                <div class="title">
-                    <h3>Carros registrados</h3>
-                    <div class="centered">
-                        <h3 style="font-weight: normal;">Cantidad de registrados: <span style="font-weight: bold;">{{count_cars}}</span></h3>
-                    </div>
-                    <div class="buttons-centered">
-                        <a href="{% url 'Registrar_usuario' %}" class="btn btn-primary">Ingresar nuevo auto</a>
-                        <a href="{% url 'Create_admin' %}" class="btn btn-dark">Ingresar un administrador</a>
-                        <a href="{% url 'createChofer' %}" class="btn btn-secondary">Agregar choferes</a>
-                    </div>
+    {% block content %}
+        {% if request.user.is_superuser %}
+            <section class="back">
+                <div class="container">
+                    <a href="/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: black;">
+                            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                    </a>
                 </div>
-                <div class="look-for">
-                    <div class="container">
-                        <form action="" method="POST"> {% csrf_token %}
-                            <label for="lookFor" class="form-label">Buscar Auto o admin</label>
-                            <input type="text" id="lookFor" name="lookFor" placeholder="Placa del carro o usuario del admin" class="form-control">
-                            <div class="btn-centered">
-                                <button type="submit" class="btn btn-success">Buscar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="cars">
-                    {% for car_info in users_with_info %}
-                        {% if car_info.user.is_superuser %}
-                            <div class="users">
-                                <p style="font-weight: bold; font-family: 25px;">Es Admin</p>
-                                <p>Nombre: <span style="font-weight: bold;">{{car_info.user.first_name}}</span></p>
-                                <p>Apellidos: <span style="font-weight: bold;">{{car_info.user.last_name}}</span></p>
-                                <p>Usuario: <span style="font-weight: bold;">{{car_info.user.username}}</span></p>
-                                <p>Email: <span style="font-weight: bold;">{{car_info.user.email}}</span></p>
-                                <div class="buttons-centered">
-                                    <form action="{% url 'Eliminar_usuario' car_info.user.id %}" method="post">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        {% else %}
-                            <div class="users">
-                                <p>Marca: <span style="font-weight: bold;">{{car_info.user.first_name}}</span></p>
-                                <p>Placa: <span style="font-weight: bold;">{{car_info.user.username}}</span></p>
-                                {% if car_info.more_info %}
-                                    <p>Año: <span style="font-weight: bold;">{{car_info.more_info.year}}</span></p>
-                                    <p>Vin: <span style="font-weight: bold;">{{car_info.more_info.vin}}</span></p>
-                                    <p>Propietario: <span style="font-weight: bold;">{{car_info.more_info.property}}</span></p>
-                                {% endif %}
-                                {% if car_info.user.last_name == '1' %}
-                                    <p>Tipo de aceite: <span style="font-weight: bold;">Havoline</span></p>
-                                {% else %}
-                                    <p>Tipo de aceite: <span style="font-weight: bold;">Chevron</span></p>
-                                {% endif %}
-                                {% if car_info.oil.date_of_change == None %}
-                                    <p>Última fecha de cambio de aceite: <span style="font-weight: bold;">No se le a realizado cambio de aceite</span></p>
-                                {% else %}
-                                    <p>Última fecha de cambio de aceite: <span style="font-weight: bold;">{{car_info.oil.date_of_change}}</span></p>
-                                {% endif %}
-                                <div class="buttons-centered">
-                                    <a href="{% url 'Edit_user' car_info.user.id %}" class="btn btn-warning">Editar</a>
-                                    <form action="{% url 'Eliminar_usuario' car_info.user.id %}" method="post">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
-                                    <a href="" class="btn btn-success btn-gastos">Ver gastos</a>
-                                </div>
-                            </div>
-                        {% endif %}
+            </section>
+            <main class="admin">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+                            <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     {% endfor %}
+                {% endif %}
+                <div class="container">
+                    <div class="title">
+                        <h3>Flotilla</h3>
+                        <div class="centered">
+                            <h3 style="font-weight: normal;">Vehiculos registrados: <span style="font-weight: bold;">{{count_cars}}</span></h3>
+                        </div>
+                        <div class="buttons-centered">
+                            <a href="{% url 'Registrar_usuario' %}" class="btn btn-outline-primary">Ingresar nuevo auto</a>
+                            <a href="{% url 'Create_admin' %}" class="btn btn-outline-primary">Ingresar un administrador</a>
+                            <a href="{% url 'createChofer' %}" class="btn btn-outline-primary">Agregar chofer</a>
+                        </div>
+                    </div>
+                    <div class="look-for">
+                        <div class="container">
+                            <form action="" method="POST"> {% csrf_token %}
+                                <label for="lookFor"   class="form-label" style="font-weight: normal; font-size: large;">Buscar Vehiculo</label>
+                                <input type="text" id="lookFor" name="lookFor" placeholder="Número de placa" class="form-control centered input-look">
+                                <div class="btn-centered">
+                                    <button type="submit" class="btn btn-outline-success">Buscar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="cars">
+                        {% for car_info in users_with_info %}
+                            {% if car_info.user.is_superuser %}
+                                <div class="users">
+                                    <p style="font-weight: bold; font-family: 25px;">Es Admin</p>
+                                    <p>Nombre: <span style="font-weight: bold;">{{car_info.user.first_name}}</span></p>
+                                    <p>Apellidos: <span style="font-weight: bold;">{{car_info.user.last_name}}</span></p>
+                                    <p>Usuario: <span style="font-weight: bold;">{{car_info.user.username}}</span></p>
+                                    <p>Email: <span style="font-weight: bold;">{{car_info.user.email}}</span></p>
+                                    <div class="buttons-centered">
+                                        <form action="{% url 'Eliminar_usuario' car_info.user.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="users">
+                                    <p>Marca: <span style="font-weight: bold;">{{car_info.user.first_name}}</span></p>
+                                    <p>Placa: <span style="font-weight: bold;">{{car_info.user.username}}</span></p>
+                                    {% if car_info.more_info %}
+                                        <p>Año: <span style="font-weight: bold;">{{car_info.more_info.year}}</span></p>
+                                        <p>Vin: <span style="font-weight: bold;">{{car_info.more_info.vin}}</span></p>
+                                    {% endif %}
+                                    {% if car_info.user.last_name == '1' %}
+                                        <p>Tipo de aceite: <span style="font-weight: bold;">Havoline</span></p>
+                                    {% else %}
+                                        <p>Tipo de aceite: <span style="font-weight: bold;">Chevron</span></p>
+                                    {% endif %}
+                                    {% if car_info.oil.date_of_change == None %}
+                                        <p>Última fecha de cambio de aceite: <span style="font-weight: bold;">No se le a realizado cambio de aceite</span></p>
+                                    {% else %}
+                                        <p>Última fecha de cambio de aceite: <span style="font-weight: bold;">{{car_info.oil.date_of_change}}</span></p>
+                                    {% endif %}
+                                    <div class="buttons-centered">
+                                        <a href="{% url 'Edit_user' car_info.user.id %}" class="btn btn-outline-primary">Editar</a>
+                                        <form action="{% url 'Eliminar_usuario' car_info.user.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                        </form>
+                                        <a href="{% url 'Expenses_Admin' car_info.user.id %}" class="btn btn-outline-success btn-gastos">Ver Gastos</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
-        </main>
-        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    {% else %}
-    {% endif %}
+            </main>
+            <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        {% else %}
+        {% endif %}
+    {% endblock %}
 </body>
 </html>

@@ -13,10 +13,11 @@
             {% else %}
                 <h3>Datos del perfil</h3>
                 <form action="" method="post">
+                    {% csrf_token %}
                     <p>Marca: <span style="font-weight: bold;">{{car.first_name}}</span></p>
                     <p>Placa: <span style="font-weight: bold;">{{car.username}}</span></p>
-                    <p>Modelo: <span style="font-weight: bold;">{{moreinfo.model}}</span></p>
                     <p>Año: <span style="font-weight: bold;">{{moreinfo.year}}</span></p>
+                    <p>Vin: <span style="font-weight: bold;">{{moreinfo.vin}}</span></p>
                     <div class="mb-3">
                         <p>Aceite que usa</p>
                         <select name="oil" id="oil" class="form-control" required style="border: 2px solid #0044ff;">
@@ -25,7 +26,7 @@
                             <option value="2">Chevron</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Modificar</button>
+                    <button type="submit" class="btn btn-outline-primary">Modificar</button>
                 </form>
             {% endif %}
         </div>

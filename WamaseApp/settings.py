@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Change_the_oil',
     'PanelAdmin',
     'pwa',
+    'Expenses',
 ]
 
 MESSAGE_TAGS = {

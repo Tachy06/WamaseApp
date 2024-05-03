@@ -5,6 +5,7 @@ from Change_the_oil.models import *
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from Expenses.models import *
 
 # Create your views here.
 def viewAdmin(request):
@@ -53,29 +54,30 @@ class registrarUsuarioAdmin(LoginRequiredMixin, View):
         return render(request, 'register_admin.html', {'usersCars': usersCar})
     def post(self, request):
         car = request.POST.get('brand')
-        model = request.POST.get('model')
+        year = request.POST.get('year')
         license_plate = request.POST.get('license_plate')
         correo = request.POST.get('email')
         oil = request.POST.get('oil')
-        year = request.POST.get('year')
+        vin = request.POST.get('vin')
+        property = request.POST.get('property')
         drivers = request.POST.getlist('drivers')
         
         if car == '':
-            messages.error(request, 'No deje el nombre en blanco')
+            messages.error(request, 'No deje la marca en blanco')
             return redirect('/register_admin/')
         elif car.isspace():
             messages.error(request, 'No digite solo espacios')
             return redirect('/register_admin/')
         
-        if model == '':
-            messages.error(request, 'No deje el apellido en blanco')
+        if year == '':
+            messages.error(request, 'No deje el año en blanco')
             return redirect('/register_admin/')
-        elif model.isspace():
+        elif year.isspace():
             messages.error(request, 'No digite solo espacios')
             return redirect('/register_admin/')
         
         if license_plate == '':
-            messages.error(request, 'No deje el nombre en blanco')
+            messages.error(request, 'No deje la placa en blanco')
             return redirect('/register_admin/')
         elif license_plate.isspace():
             messages.error(request, 'No digite solo espacios')
@@ -88,7 +90,7 @@ class registrarUsuarioAdmin(LoginRequiredMixin, View):
             messages.error(request, 'No digite solo espacios')
             return redirect('/register_admin/')
         
-        elif User.objects.filter(username=model):
+        elif User.objects.filter(username=license_plate):
             messages.error(request, 'Usuario existente')
             return redirect('/register_admin/')
         
@@ -100,14 +102,14 @@ class registrarUsuarioAdmin(LoginRequiredMixin, View):
             User.objects.create_user(first_name=car, username=license_plate, email='Nothing', password=license_plate, last_name=oil)
             usuario = User.objects.get(username=license_plate)
             drivers_Cars = usersCars.objects.filter(pk__in=drivers)
-            moreInfo = moreInformation.objects.create(user=usuario, model=model, year=year)
+            moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property)
             moreInfo.usersCar.set(drivers_Cars)
             return redirect('/admin/')
         
         User.objects.create_user(first_name=car, username=license_plate, email=correo, password=license_plate, last_name=oil)
         usuario = User.objects.get(username=license_plate)
         drivers_Cars = usersCars.objects.filter(pk__in=drivers)
-        moreInfo = moreInformation.objects.create(user=usuario, model=model, year=year)
+        moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property)
         moreInfo.usersCar.set(drivers_Cars)
         return redirect('/admin/')
     
@@ -124,7 +126,6 @@ class editUser(LoginRequiredMixin, View):
         return render(request, 'edit_user_admin.html', {'user_info': user_info})
     def post(self, request, user_id):
         car = request.POST.get('brand')
-        model = request.POST.get('model')
         license_plate = request.POST.get('license_plate')
         correo = request.POST.get('email')
         oil = request.POST.get('oil')
@@ -135,13 +136,6 @@ class editUser(LoginRequiredMixin, View):
             messages.error(request, 'No deje la marca en blanco')
             return redirect(f'/edit_user/{user_id}')
         elif car.isspace():
-            messages.error(request, 'No digite solo espacios')
-            return redirect(f'/edit_user/{user_id}')
-        
-        if model == '':
-            messages.error(request, 'No deje el modelo en blanco')
-            return redirect(f'/edit_user/{user_id}')
-        elif model.isspace():
             messages.error(request, 'No digite solo espacios')
             return redirect(f'/edit_user/{user_id}')
         
@@ -176,7 +170,6 @@ class editUser(LoginRequiredMixin, View):
             car_id.email = 'Nothing'
             car_id.save()
             more.year = year
-            more.model = model
             more.save()
             messages.success(request, 'Cambio exitoso')
             return redirect('/admin/')
@@ -186,7 +179,6 @@ class editUser(LoginRequiredMixin, View):
         car_id.email = correo
         car_id.save()
         more.year = year
-        more.model = model
         more.save()
         messages.success(request, 'Cambio exitoso')
         return redirect('/admin/')
@@ -266,3 +258,13 @@ class createChofer(LoginRequiredMixin, View):
         driver = usersCars.objects.create(user=name)
         messages.success(request, 'Creado exitosamente')
         return redirect('/admin/')
+    
+class expensesAdmin(LoginRequiredMixin, View):
+    login_url = '/login/'
+    def get(self, request, user_id):
+        user = get_object_or_404(User, pk=user_id)
+        expenses = Expenses.objects.filter(user=user)
+        total = 0
+        for expense in expenses:
+            total += expense.amount
+        return render(request, 'view_expenses_admin.html', {'user': user, 'expenses': expenses, 'total': total})

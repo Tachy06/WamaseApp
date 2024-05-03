@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    /* Estilo para ocultar los botones de incremento y decremento en Chrome, Safari y Edge */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Estilo para ocultar los botones de incremento y decremento en Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
 <section class="pageForm">
     {% if messages %}
         {% for message in messages %}
@@ -12,7 +25,7 @@
     {% endif %}
     <div class="container">
         <div class="fondo">
-            <h3>Cuantos Kilometros recorrió el auto?</h3>
+            <h3>Actualización</h3>
             <form action="" method="post">{% csrf_token %}
                 <div class="mb-3">
                     <label for="km" class="form-label">Kilometraje</label>
@@ -32,7 +45,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Cargar Kilometraje</button>
+                <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Cargar Kilometraje</button>
             </form>
         </div>
     </div>

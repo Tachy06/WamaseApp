@@ -37,7 +37,7 @@
                             <div class="buttons">
                                 <form action="{% url 'Eliminar_usuario' car.id %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                 </form>
                             </div>
                         </div>
@@ -61,10 +61,10 @@
                             {% endif %}
                             <p>Última fecha de cambio de aceite: <span style="font-weight: bold;">{{oil.date_of_change}}</span></p>
                             <div class="buttons">
-                                <a href="{% url 'Edit_user' car.id %}" class="btn btn-warning">Editar</a>
+                                <a href="{% url 'Edit_user' car.id %}" class="btn btn-outline-primary">Editar</a>
                                 <form action="{% url 'Eliminar_usuario' car.id %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                 </form>
                             </div>
                         </div>

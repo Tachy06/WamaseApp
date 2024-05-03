@@ -5,8 +5,14 @@
 {% block content %}
 <section class="expenses">
     <div class="container">
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+                <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
         <div class="fondo">
-            <h1 style="margin-bottom: 15px;">Añadir Gastos</h1>
+            <h1 style="margin-bottom: 15px;" class="h1-expenses">Añadir Gastos</h1>
             <form action="" method="post">
                 {% csrf_token %}
                 <div class="mb-3">

@@ -5,5 +5,4 @@ urlpatterns = [
     path('', Home.as_view(), name='Home'),
     path('km/', KMCarView.as_view(), name='KMCarView'),
     path('profile/', profile.as_view(), name='Profile'),
-    path('expenses/', expenseView.as_view(), name='Expenses'),
 ]

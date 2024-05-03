@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('Change_the_oil.urls')),
     path('', include('PanelAdmin.urls')),
     path('', include('pwa.urls')),
+    path('', include('Expenses.urls')),
 ]

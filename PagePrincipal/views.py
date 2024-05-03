@@ -63,9 +63,14 @@ class KMCarView(LoginRequiredMixin, View):
                 messages.success(request, 'Kilometraje agregado')
                 return redirect('/km/')
         else:
-            KMCar.objects.create(license_plate=car, user_user=driver.user, km_today=float(km), total_journey=float(km), date=date)
-            messages.success(request, 'Kilometraje agregado')
-            return redirect('/km/')
+            date_exist = Change_Oil.objects.filter(car=car)
+            if date_exist.exists():
+                KMCar.objects.create(license_plate=car, user_user=driver.user, km_today=float(km), total_journey=float(km), date=date)
+                messages.success(request, 'Kilometraje agregado')
+                return redirect('/km/')
+            else:
+                messages.error(request, 'Primero debes agregar una fecha del cambio de aceite')
+                return redirect('/km/')
         
 class profile(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -73,8 +78,3 @@ class profile(LoginRequiredMixin, View):
         car = User.objects.get(username=request.user)
         moreinfo = moreInformation.objects.filter(user=car).last()
         return render(request, 'profile.html', {'car': car, 'moreinfo': moreinfo})
-    
-class expenseView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    def get(self, request):
-        return render(request, 'add_expenses.html')
