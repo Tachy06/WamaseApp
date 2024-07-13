@@ -25,23 +25,17 @@
     {% endif %}
     <div class="container">
         <div class="fondo">
-            <h3>Actualización</h3>
+            <h3>Agregar Kilometraje</h3>
             <form action="" method="post">{% csrf_token %}
                 <div class="mb-3">
                     <label for="km" class="form-label">Kilometraje</label>
                     <input type="number" name="km" id="km" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="date" class="form-label">Fecha</label>
-                    <input type="date" name="date" id="date" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="drivers" class="form-label">Choferes</label>
+                    <label for="drivers" class="form-label">Chofer</label>
                     <select name="drivers" id="drivers" class="form-control" required>
-                        {% for info in moreInfo %}
-                            {% for user_car in info.usersCar.all %}
-                                <option value="{{ user_car.id }}">{{ user_car.user }}</option>
-                            {% endfor %}
+                        {% for driver in allDrivers %}
+                            <option value="{{ driver.id }}">{{ driver.user }}</option>
                         {% endfor %}
                     </select>
                 </div>

@@ -1,0 +1,24 @@
+{% extends 'panelAdmin.html' %}
+{% load static %}
+{% load pwa %}
+{% block title %} <title>Delete Driver</title> {% endblock %}
+{% block content %}
+<section class="chofer">
+    <h1>Eliminar un chofer</h1>
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="driver" class="form-label">Chofer</label>
+                <select class="form-control" name="drivers" id="drivers" multiple required>
+                    <option value="0" selected>Seleccione los choferes a eliminar</option>
+                    {% for driver in drivers %}
+                        <option value="{{ driver.id }}">{{ driver.user }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-danger" style="margin-top: 10px;">Delete</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

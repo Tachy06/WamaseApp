@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+            <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
 <section class="profile">
     <div class="container">
-        <div class="fondo">
+        <div class="fondo mt-3">
             {% if request.user.is_superuser %}
                 <h3>Datos del perfil</h3>
                 <p>Nombre: <span style="font-weight: bold;">{{car.first_name}}</span></p>
@@ -18,12 +26,19 @@
                     <p>Placa: <span style="font-weight: bold;">{{car.username}}</span></p>
                     <p>Año: <span style="font-weight: bold;">{{moreinfo.year}}</span></p>
                     <p>Vin: <span style="font-weight: bold;">{{moreinfo.vin}}</span></p>
+                    <p>Código de filtro de aceite: <span style="font-weight: bold;">{{moreinfo.code_filter_oil}}</span></p>
+                    <p>Código de filtro de aire: <span style="font-weight: bold;">{{moreinfo.code_filter_air}}</span></p>
+                    <p>Propietario: <span style="font-weight: bold;">{{moreinfo.property}}</span></p>
                     <div class="mb-3">
                         <p>Aceite que usa</p>
                         <select name="oil" id="oil" class="form-control" required style="border: 2px solid #0044ff;">
-                            <option value="0">Seleccione el tipo de aceite</option>
-                            <option value="1">Havoline</option>
-                            <option value="2">Chevron</option>
+                            {% if car.last_name == '1' %}
+                                <option value="1" selected>Havoline</option>
+                                <option value="2">Chevron</option>
+                            {% else %}
+                                <option value="1">Havoline</option>
+                                <option value="2" selected>Chevron</option>
+                            {% endif %}
                         </select>
                     </div>
                     <button type="submit" class="btn btn-outline-primary">Modificar</button>

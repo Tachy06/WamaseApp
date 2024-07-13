@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load pwa %}
+{% block title %} <title>Gastos</title> {% endblock %}
+{% block content %}
+<section class="expenses">
+    <div class="container">
+        <div class="card">
+            <h5 class="card-header d-flex justify-content-start text-left"> Vehiculo {{request.user}}</h5>
+            <div class="card-body">
+                <h3 class="card-title" style="font-size:large; font-style: italic;">Gastos Reportados </h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 350px;">Motivo</th>
+                                <th scope="col" style="width: 200px;">Costo de la reparacion  </th>
+                                <th scope="col" style="width: 200px;">Fecha</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for expense in expenses %}
+                            <tr>
+                                <td>{{expense.title}}</td>
+                                <td>${{expense.amount}}</td>
+                                <td>{{expense.date}}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>${{total}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

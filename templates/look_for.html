@@ -51,21 +51,29 @@
                             <p>Marca: <span style="font-weight: bold;">{{car.first_name}}</span></p>
                             <p>Placa: <span style="font-weight: bold;">{{car.username}}</span></p>
                             {% if more_info %}
-                                <p>Modelo: <span style="font-weight: bold;">{{more_info.model}}</span></p>
                                 <p>Año: <span style="font-weight: bold;">{{more_info.year}}</span></p>
+                                <p>VIN: <span style="font-weight: bold;">{{more_info.vin}}</span></p>
                             {% endif %}
                             {% if car.last_name == '1' %}
-                                <p>Tipo de gasolina: <span style="font-weight: bold;">Havoline</span></p>
+                                <p>Tipo de aceite: <span style="font-weight: bold;">Havoline</span></p>
                             {% else %}
-                                <p>Tipo de gasolina: <span style="font-weight: bold;">Chevron</span></p>
+                                <p>Tipo de aceite: <span style="font-weight: bold;">Chevron</span></p>
                             {% endif %}
-                            <p>Última fecha de cambio de aceite: <span style="font-weight: bold;">{{oil.date_of_change}}</span></p>
-                            <div class="buttons">
+                            <p>Código de filtro de aceite: <span style="font-weight: bold;">{{more_info.code_filter_oil}}</span></p>
+                            <p>Código de filtro de aire: <span style="font-weight: bold;">{{more_info.code_filter_air}}</span></p>
+                            <p>Propietario: <span style="font-weight: bold;">{{more_info.property}}</span></p>
+                            {% if oil.date_of_change == None %}
+                                <p>Última fecha de cambio de aceite: <span style="font-weight: bold;">No se le a realizado cambio de aceite</span></p>
+                            {% else %}
+                                <p>Última fecha de cambio de aceite: <span style="font-weight: bold;">{{oil.date_of_change}}</span></p>
+                            {% endif %}
+                            <div class="buttons-centered">
                                 <a href="{% url 'Edit_user' car.id %}" class="btn btn-outline-primary">Editar</a>
                                 <form action="{% url 'Eliminar_usuario' car.id %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                    <button type="submit" class="btn btn-outline-danger mx-2">Eliminar</button>
                                 </form>
+                                <a href="{% url 'Expenses_Admin' car.id %}" class="btn btn-outline-success btn-gastos">Ver Gastos</a>
                             </div>
                         </div>
                     </div>

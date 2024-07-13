@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin</title>
+    <title>Crear y borrar choferes</title>
     {% progressive_web_app_meta %}
     <meta name="description" content="{% block meta_description %}Panel Administrador de Wemasa{% endblock %}">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -14,27 +14,61 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <section class="back">
-        <div class="container">
-            <a href="/admin/">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: black;">
-                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-                </svg>
-            </a>
-        </div>
-    </section>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+                <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
     <section class="chofer">
-        <h1>Agregar un nuevo chofer</h1>
+        <section class="back">
+            <div class="contenedor ms-3 back-chofer">
+                <a href="/admin/">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: white;">
+                        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
         <div class="container">
-            <form action="" method="post">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="chofer" class="form-label">Chofer</label>
-                    <input type="text" id="chofer" name="chofer" class="form-control" required>
+            <div class="row">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <!-- Add Driver Form -->
+                        <h1 style="font-size: 25px;">Agregar un nuevo chofer</h1>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="chofer" class="form-label">Nombre del conductor</label>
+                                <input type="text" id="chofer" name="chofer" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="font-size: 18px;">Registrar</button>
+                        </form>
+                        <hr>
+                        <!-- Delete Driver Form -->
+                        <h1 style="font-size: 25px;">Eliminar chofer</h1>
+                        <form action="{% url 'DeleteChofer' %}" method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="chofer_delete" class="form-label">Seleccione el conductor</label>
+                                <select id="chofer_delete" name="chofer_delete" class="form-select" required>
+                                    <!-- Example options, replace with dynamic data -->
+                                    <option value="0" selected disabled>Seleccione un chofer</option>
+                                    {% for driver in drivers %}
+                                        <option value="{{ driver.id }}">{{ driver.user }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-outline-danger" style="font-size: 18px;">Eliminar</button>
+                        </form>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-outline-primary" style="font-size: 19px; margin-bottom: 10px;">Registrar chofer</button>
-            </form>
+            </div>
         </div>
     </section>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 </html>

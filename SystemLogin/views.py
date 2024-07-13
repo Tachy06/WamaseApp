@@ -24,7 +24,9 @@ class RegisterView(View):
         oil = request.POST.get('oil')
         vin = request.POST.get('vin')
         property = request.POST.get('property')
-        drivers = request.POST.getlist('drivers')
+        code = request.POST.get('code')
+        code_filter_oil = request.POST.get('code_filter_oil')
+        code_filter_air = request.POST.get('code_filter_air')
         
         if car == '':
             messages.error(request, 'No deje el nombre en blanco')
@@ -61,22 +63,47 @@ class RegisterView(View):
         if correo.isspace():
             messages.error(request, 'No digite solo espacios')
             return redirect('/register/')
+        
+        if code_filter_oil == '':
+            messages.error(request, 'No deje el código en blanco')
+            return redirect('/register/')
+        elif code_filter_oil.isspace():
+            messages.error(request, 'No digite solo espacios')
+            return redirect('/register/')
+        
+        if code_filter_air == '':
+            messages.error(request, 'No deje el código en blanco')
+            return redirect('/register/')
+        elif code_filter_air.isspace():
+            messages.error(request, 'No digite solo espacios')
+            return redirect('/register/')
+        
+        if code == '':
+            messages.error(request, 'No deje el código en blanco')
+            return redirect('/register/')
+        elif code.isspace():
+            messages.error(request, 'No digite solo espacios')
+            return redirect('/register/')
+        
         elif correo == '':
-            User.objects.create_user(first_name=car, username=license_plate, email='Nothing', password=license_plate, last_name=oil)
+            if code == '1982':
+                User.objects.create_user(first_name=car, username=license_plate, email='Nothing', password=license_plate, last_name=oil)
+                usuario = User.objects.get(username=license_plate)
+                moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property, code_filter_oil=code_filter_oil, code_filter_air=code_filter_air)
+                messages.success(request, 'Todo correcto')
+                return redirect('/login/')
+            else:
+                messages.error(request, 'Código de seguridad incorrecto')
+                return redirect('/register/')
+        if code == '1982':
+            User.objects.create_user(first_name=car, username=license_plate, email=correo, password=license_plate, last_name=oil)
             usuario = User.objects.get(username=license_plate)
-            drivers_Cars = usersCars.objects.filter(pk__in=drivers)
-            moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property)
-            moreInfo.usersCar.set(drivers_Cars)
+            moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property, code_filter_oil=code_filter_oil, code_filter_air=code_filter_air)
             messages.success(request, 'Todo correcto')
             return redirect('/login/')
-        
-        User.objects.create_user(first_name=car, username=license_plate, email=correo, password=license_plate, last_name=oil)
-        usuario = User.objects.get(username=license_plate)
-        drivers_Cars = usersCars.objects.filter(pk__in=drivers)
-        moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property)
-        moreInfo.usersCar.set(drivers_Cars)
-        messages.success(request, 'Todo correcto')
-        return redirect('/login/')
+        else:
+            messages.error(request, 'Código de seguridad incorrecto')
+            return redirect('/register/')
     
 class LoginView(View):
     def get(self, request):

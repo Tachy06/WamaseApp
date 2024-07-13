@@ -15,16 +15,16 @@
 </head>
 <body>
     {% if request.user.is_superuser %}
-        <section class="back">
-            <div class="container">
-                <a href="/admin/">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: black;">
-                        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-                    </svg>
-                </a>
-            </div>
-        </section>
         <section class="register_admin_car">
+            <section class="back d-flex justify-content-start align-items-center text-left">
+                <div class="contenedor d-flex justify-content-start align-items-center text-left">
+                    <a href="/admin/" class="ms-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: rgb(255, 255, 255);">
+                            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                    </a>
+                </div>
+            </section>
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
@@ -33,52 +33,73 @@
                     </div>
                 {% endfor %}
             {% endif %}
+
+
             <div class="container">
-                <h1 style="margin-bottom: 15px;" class="h1-admin-create">Registrar auto</h1>
-                <div class="fondo">
-                    <form action="" method="post"> {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="brand" class="form-label">Marca del carro</label>
-                            <input type="text" id="brand" name="brand" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="year" class="form-label">Año del carro</label>
-                            <input type="number" id="year" name="year" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="license_plate" class="form-label">Placa del carro</label>
-                            <input type="text" id="license_plate" name="license_plate" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="oil">Aceite a usar</label>
-                            <select name="oil" id="oil" class="form-control" required style="border: 2px solid #0044ff;">
-                                <option value="0">Seleccione el tipo de aceite</option>
-                                <option value="1">Havoline</option>
-                                <option value="2">Chevron</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="vin" class="form-label">Vin del carro</label>
-                            <input type="text" name="vin" id="vin" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="property" class="form-label">Propietario del carro</label>
-                            <input type="text" name="property" id="property" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo ha asociar</label>
-                            <input type="email" name="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="drivers" class="form-label">Choferes</label>
-                            <select name="drivers" id="drivers" class="form-control" multiple required>
-                                {% for driver in usersCars %}
-                                    <option value="{{ driver.id }}">{{ driver.user }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="padding: 10px 15px; font-size: 19px; margin-bottom: 10px;">Registrar</button>
-                    </form>
+                <h1 style="margin-bottom: 15px; font-style: italic; font-size: 20px;" class="h1-admin-create text-center">Registrar Vehiculo</h1>
+                <div class="card mx-auto" style="box-shadow: -1px 1px 5px black; ">
+                    <div class="card-body">
+                        <form action="" method="post"> {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="license_plate" class="form-label">Numero de Placa</label>
+                                    <input type="text" id="license_plate" name="license_plate" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="vin" class="form-label">Numero de Vin</label>
+                                    <input type="text" name="vin" id="vin" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="brand" class="form-label">Marca</label>
+                                    <input type="text" id="brand" name="brand" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="year" class="form-label">Año</label>
+                                    <input type="number" id="year" name="year" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="oil" class="form-label">Aceite a usar</label>
+                                    <select name="oil" id="oil" class="form-control" required>
+                                        <option value="0">Seleccione el tipo de aceite</option>
+                                        <option value="1">Havoline</option>
+                                        <option value="2">Chevron</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="property" class="form-label">Propietario</label>
+                                    <input type="text" name="property" id="property" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="code_filter_oil" class="form-label">Codigo filtro de aceite</label>
+                                    <input type="text" id="code_filter_oil" name="code_filter_oil" class="form-control text-center" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="code_filter_air" class="form-label">Código filtro de aire</label>
+                                    <input type="text" id="code_filter_air" name="code_filter_air" class="form-control text-center" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Correo a asociar</label>
+                                    <input type="email" name="email" id="email" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="code" class="form-label">Codigo de seguridad</label>
+                                    <input type="text" id="code" name="code" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-register-user" style="font-size: 19px; margin-bottom: 10px;">Registrar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>

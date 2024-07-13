@@ -12,11 +12,10 @@
         {% endfor %}
     {% endif %}
     <div class="container">
-        <h1 style="margin-bottom: 15px;">Vehiculo {{ user.username }}</h1>
+        <h1 style="text-align: center;">Generar todos los gastos</h1>
         <div class="form-group">
-            <form method="get" action="{% url 'Expenses_Admin' user.id %}">
+            <form method="get" action="{% url 'Generate_All_Expenses' %}">
                 <div class="row mb-3" style="width: 250px; justify-content: center;">
-                    
                     <div class="col-sm-10">
                         <select name="month" id="id_month" class="form-control">
                             <option value="0">Seleccionar mes de:</option>
@@ -43,33 +42,19 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" style="width: 250px;">Motivo</th>
-                    <th scope="col" style="width: 200px;">Costo de la reparacion</th>
-                    <th scope="col" style="width: 150px;">Fecha</th>
-                    <th scope="col" style="width: 200px;">Acciones</th>
+                    <th scope="col" style="width: 250px;">Carro</th>
                     <th scope="col" style="width: 200px;">Total</th>
                 </tr>
             </thead>
             <tbody>
                 {% if is_filtered %}
-                    {% if expenses %}
-                        {% for expense in expenses %}
+                    {% if user_with_info %}
+                        {% for user_info in user_with_info %}
                             <tr>
-                                <td>{{ expense.title }}</td>
-                                <td>${{ expense.amount }}</td>
-                                <td>{{ expense.date }}</td>
-                                <td>
-                                    <form action="{% url 'Delete_expense' expense.id %}" method="post">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
-                                </td>
+                                <td>{{ user_info.user.username }}</td>
+                                <td>${{ user_info.total }}</td>
                             </tr>
                         {% endfor %}
-                        <tr>
-                            <td colspan="4" class="text-right"><strong>Total</strong></td>
-                            <td>${{ total }}</td>
-                        </tr>
                     {% else %}
                         <tr>
                             <td colspan="5" class="text-center">No se registraron gastos este mes.</td>
@@ -83,10 +68,10 @@
             </tbody>
         </table>
         <div class="text-center">
-            {% if is_filtered and expenses %}
-                <a href="{% url 'Expenses_Admin_PDF' user.id %}?month={{ request.GET.month }}" class="btn btn-primary mb-4" style="width: 200px;">Descargar PDF</a>
+            {% if total_improve_to_zero %}
+                <a href="{% url 'Generate_All_Expenses_PDF' %}?month={{ request.GET.month }}" class="btn btn-primary" style="width: 200px;">Descargar PDF</a>
             {% else %}
-                <button class="btn btn-primary" style="width: 200px;" disabled>Descargar PDF</button>
+                <button class="btn btn-primary" style="width: 200px;" disabled>Descargar PDF</but>
             {% endif %}
         </div>
     </div>

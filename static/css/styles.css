@@ -1,4 +1,6 @@
+
 *{
+
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -104,11 +106,14 @@ nav{
 .register{
     display: flex;
     flex-direction: column;
-    height: 140dvh;
+    height: auto;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(to bottom, #0084ff, #00ff55);
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .register .container{
@@ -117,11 +122,12 @@ nav{
     justify-content: center;
     align-items: center;
     text-align: center;
+    height: auto;
 }
 
-.register .container .img-loguito{
-    width: 100px;
-    height: 100px;
+.register .container .card .card-body .img-loguito{
+    width: 90px;
+    height: 90px;
     border-radius: 50px;
 }
 
@@ -158,6 +164,7 @@ nav{
     z-index: 1;
 }
 
+
 .login{
     display: flex;
     flex-direction: column;
@@ -165,7 +172,11 @@ nav{
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(to bottom,   #65b0f7, #0485fe,#32f372,#00ff55);
+   background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+   /*background: linear-gradient(to bottom,   #65b0f7, #0485fe,#32f372,#00ff55);*/
 }
 
 .login .container{
@@ -221,11 +232,34 @@ nav{
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 90dvh;
-    background: linear-gradient(to bottom, #0084ff, #00ff55);
+    height: 95dvh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/kilometrajefon.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.pageForm2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 95dvh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/aceite2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+   /* background: linear-gradient(to bottom, #ff0000, #00ff55);*/
 }
 
 .pageForm .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.pageForm2 .container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -240,21 +274,24 @@ nav{
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 45vh;
+    height: auto;
     background: white;
     width: 400px;
+    border-radius: 15px;
+    padding: 20px 0px;
 }
 
-.pageForm .container .fondo_Oil{
+.pageForm2 .container .fondo_Oil{
     box-shadow: 0px 0px 6px black;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 40vh;
+    height: auto;
     background: white;
     border-radius: 10px;
+    width: 400px;
 }
 
 .pageForm .container .fondo input{
@@ -267,8 +304,11 @@ nav{
     align-items: center;
     text-align: center;
     flex-direction: column;
-    height: 90dvh;
-    background: linear-gradient(to bottom, #0084ff, #00ff55);
+    height: 95dvh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .profile .container{
@@ -286,12 +326,13 @@ nav{
     align-items: center;
     text-align: center;
     flex-direction: column;
-    height: 380px;
+    height: auto;
     width: 350px;
     box-shadow: 0px 0px 6px black;
     background: white;
     border-radius: 10px;
     margin-bottom: 50px;
+    padding: 20px 0px;
 }
 
 .admin{
@@ -355,10 +396,12 @@ nav{
 .register_admin{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 90dvh;
+    height: 100dvh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
 }
 
 .register_admin .container{
@@ -368,6 +411,7 @@ nav{
     align-items: center;
     text-align: center;
     height: auto;
+    color: #000000;
 }
 
 .register_admin .container .fondo{
@@ -382,13 +426,19 @@ nav{
     text-align: center;
 }
 
+.create_super_user{
+    margin-top: 80px;
+}
+
+.actualizar_precios .container .card{
+    width: 20rem;
+}
+
 .modified_user_admin{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 90dvh;
+    height: 110dvh;
+    margin-top: 0px;
 }
 
 .modified_user_admin .container{
@@ -397,30 +447,24 @@ nav{
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: auto;
 }
 
-.modified_user_admin .container .fondo{
-    width: 350px;
-    height: 500px;
-    box-shadow: 0px 0px 10px black;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.modified_user_admin .container .card{
+    width: 20rem;
 }
-
 
 .register_admin_car{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 130dvh;
+    height: 150dvh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
 }
+
+
 
 .register_admin_car .container{
     display: flex;
@@ -434,17 +478,13 @@ nav{
     width: 350px;
     height: 800px;
     box-shadow: 0px 0px 10px black;
-    background-color: white;
+    background-color: white(208, 46, 46);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     margin-bottom: 20px;
-}
-
-.h1-admin-create{
-    margin-top: 70px;
 }
 
 .look-for{
@@ -540,10 +580,13 @@ nav{
 .chofer{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 90dvh;
+    height: 100vh;
+    /* background-color: #0044ff;*/
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/fondo.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
 }
 
 .chofer .container{
@@ -554,14 +597,21 @@ nav{
     text-align: center;
 }
 
+.chofer .container .card{
+    margin-top: 100px;
+}
+
 .expenses{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 90dvh;
-    background: linear-gradient(to bottom, #0084ff, #00ff55);
+    height: 95dvh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/fondogastos.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .expenses .container{
@@ -600,11 +650,15 @@ nav{
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 50%;
+    margin-top: 25%;
 }
 
 .appleSafariContent{
     display: none;
+}
+
+.h1-admin-create{
+    margin-top: -10px;
 }
 
 @supports (-webkit-touch-callout: none) {
@@ -645,7 +699,12 @@ nav{
 
 @media only screen and (min-width:768px){
     .register{
-        height: 160dvh;
+        height: auto;
+    }
+    
+    .register .container .card{
+        height: auto;
+        width: 40rem;
     }
 
     .pageMain{
@@ -661,12 +720,12 @@ nav{
     }
 
     .back{
-        display: none;
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        text-align: left;
     }
 
-    .h1-admin-create{
-        margin-top: 100px;
-    }
 
     .pageForm .container .fondo{
         height: 60vh;
@@ -674,16 +733,12 @@ nav{
         border-radius: 10px;
     }
 
-/*     .register_admin .container .fondo{
-        height: 510px;
-    } */
-
     .profile{
-        height: 90dvh;
+        height: 98dvh;
     }
     
     .register_admin{
-        height: 90dvh;
+        height: 100dvh;
     }
 
     .btn-gastos{
@@ -695,11 +750,19 @@ nav{
     }
 
     .register_admin_car{
-        height: 150dvh;
+        height: 100dvh;
     }
 
     .register_admin_car .container .fondo{
         height: auto;
+    }
+    .register_admin_car .container .card{
+        height: auto;
+        width:40rem ;
+    }
+
+    .modified_user_admin .container .card{
+        width: 40rem;
     }
 
     .expenses_admin .container{
@@ -707,7 +770,7 @@ nav{
     }
 
     .modified_user_admin{
-        height: 120dvh;
+        height: 90dvh;
     }
 
     .input-look{
@@ -716,5 +779,33 @@ nav{
 
     .h1-expenses{
         font-size: 29px;
+    }
+
+    .h1-admin-create{
+        margin-top: 0px;
+    }
+
+    .alert-pc{
+        margin-top: 250px;
+    }
+
+    .btn-register-user{
+        width: 100px;
+    }
+
+    .chofer .container .card{
+        margin-top: 50px;
+    }
+
+    .actualizar_precios{
+        margin-top: 50px;
+    }
+
+    .actualizar_precios .container .card{
+        width: 40rem;
+    }
+
+    .create_super_user{
+        margin-top: 0px;
     }
 }

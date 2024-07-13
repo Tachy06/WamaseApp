@@ -10,5 +10,6 @@ class moreInformation(models.Model):
     year = models.IntegerField(null=False)
     vin = models.CharField(max_length=255, null=False)
     property = models.CharField(max_length=255, null=False)
-    usersCar = models.ManyToManyField(usersCars)
+    code_filter_oil = models.CharField(max_length=255, null=False)
+    code_filter_air = models.CharField(max_length=255, null=False)
 
