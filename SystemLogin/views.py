@@ -65,15 +65,13 @@ class RegisterView(View):
             return redirect('/register/')
         
         if code_filter_oil == '':
-            messages.error(request, 'No deje el código en blanco')
-            return redirect('/register/')
+            code_filter_oil = 0
         elif code_filter_oil.isspace():
             messages.error(request, 'No digite solo espacios')
             return redirect('/register/')
         
         if code_filter_air == '':
-            messages.error(request, 'No deje el código en blanco')
-            return redirect('/register/')
+            code_filter_air = 0
         elif code_filter_air.isspace():
             messages.error(request, 'No digite solo espacios')
             return redirect('/register/')

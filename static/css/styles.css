@@ -241,15 +241,11 @@ nav{
 .pageForm2 {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 95dvh;
+    height: 100dvh;
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/aceite2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-   /* background: linear-gradient(to bottom, #ff0000, #00ff55);*/
 }
 
 .pageForm .container{

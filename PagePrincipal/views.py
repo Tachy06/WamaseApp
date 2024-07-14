@@ -36,6 +36,7 @@ class KMCarView(LoginRequiredMixin, View):
     def post(self, request):
         km = request.POST['km']
         drivers = request.POST['drivers']
+        date = request.POST['date']
 
         if km == '' or km.isspace():
             messages.error(request, 'No dejes en blanco el kilometraje')
@@ -47,18 +48,18 @@ class KMCarView(LoginRequiredMixin, View):
         if km_record is not None:
             if km_record.km_today == 0.0:
                 total = float(km)
-                KMCar.objects.create(license_plate=car, user_use=str(driver.user), km_today=float(km), total_journey=total)
+                KMCar.objects.create(license_plate=car, user_use=str(driver.user), km_today=float(km), total_journey=total, date=date)
                 messages.success(request, 'Kilometraje agregado')
                 return redirect('/km/')
             else:
                 total = float(km_record.total_journey) + float(km)
-                KMCar.objects.create(license_plate=car, user_use=str(driver.user), km_today=float(km), total_journey=float(total))
+                KMCar.objects.create(license_plate=car, user_use=str(driver.user), km_today=float(km), total_journey=float(total), date=date)
                 messages.success(request, 'Kilometraje agregado')
                 return redirect('/km/')
         else:
             date_exist = Change_Oil.objects.filter(car=car)
             if date_exist.exists():
-                KMCar.objects.create(license_plate=car, user_user=str(driver.user), km_today=float(km), total_journey=float(km))
+                KMCar.objects.create(license_plate=car, user_user=str(driver.user), km_today=float(km), total_journey=float(km), date=date)
                 messages.success(request, 'Kilometraje agregado')
                 return redirect('/km/')
             else:

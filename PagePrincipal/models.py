@@ -8,7 +8,7 @@ class KMCar(models.Model):
     user_use = models.CharField(max_length=255, null=False)
     km_today = models.FloatField(default=0)
     total_journey = models.FloatField(default=0)
-    date = models.DateField(default=date.today())
+    date = models.DateField(null=False)
     
     class Meta:
         verbose_name = 'KMCar'
