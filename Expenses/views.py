@@ -5,18 +5,32 @@ from django.contrib.auth.models import User
 from .models import Expenses
 from django.contrib import messages
 # Create your views here.
-class expenseView(LoginRequiredMixin, View):
+class AddExpenses(LoginRequiredMixin, View):
     login_url = '/login/'
     def get(self, request):
-        return render(request, 'add_expenses.html')
+        cars = User.objects.all()
+        return render(request, 'add_expenses.html', {'cars': cars})
     def post(self, request):
-        expense = request.POST['expense']
-        amount = request.POST['amount']
-        description = request.POST['description']
-        user = User.objects.get(username=request.user)
-        Expenses.objects.create(user=user, title=expense, description=description, amount=float(amount))
-        messages.success(request, 'Creado exitosamente')
-        return redirect('/add_expenses/')
+        if request.user.is_superuser:
+            car = request.POST['car']
+            if car == '0':
+                messages.error(request, 'Seleccione un vehiculo')
+                return redirect('/add_expenses/')
+            car_id = User.objects.get(id=car)
+            expense = request.POST['expense']
+            amount = request.POST['amount']
+            description = request.POST['description']
+            Expenses.objects.create(user=car_id, title=expense, description=description, amount=float(amount))
+            messages.success(request, 'Creado exitosamente')
+            return redirect('/add_expenses/')
+        else:
+            car_id = User.objects.get(username=request.user)
+            expense = request.POST['expense']
+            amount = request.POST['amount']
+            description = request.POST['description']
+            Expenses.objects.create(user=car_id, title=expense, description=description, amount=float(amount))
+            messages.success(request, 'Creado exitosamente')
+            return redirect('/add_expenses/')
     
 class expenseViewUser(LoginRequiredMixin, View):
     login_url = '/login/'

@@ -17,34 +17,76 @@
 <section class="pageForm">
     {% if messages %}
         {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 10px;">
                 <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
     {% endif %}
     <div class="container">
-        <div class="fondo">
-            <h3>Agregar Kilometraje</h3>
-            <form action="" method="post">{% csrf_token %}
-                <div class="mb-3">
-                    <label for="km" class="form-label">Kilometraje</label>
-                    <input type="number" name="km" id="km" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="date" class="form-label">Fecha</label>
-                    <input type="date" name="date" id="date" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="drivers" class="form-label">Chofer</label>
-                    <select name="drivers" id="drivers" class="form-control" required>
-                        {% for driver in allDrivers %}
-                            <option value="{{ driver.id }}">{{ driver.user }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Cargar Kilometraje</button>
-            </form>
+        <div class="card">
+            <div class="card-body">
+                {% if request.user.is_superuser %}
+                    <h3>Agregar Kilometraje</h3>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="car" class="form-label">Vehiculo a escoger</label>
+                                <select name="car" id="car" class="form-control text-center" required>
+                                    <option value="0" disabled selected>Seleccionar vehículo</option>
+                                    {% for car in cars %}
+                                        {% if car.is_superuser %}
+                                        {% else %}
+                                            <option value="{{ car.id }}">{{ car.username }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="km" class="form-label">Kilometraje</label>
+                                <input type="number" name="km" id="km" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="date" class="form-label">Fecha</label>
+                                <input type="date" name="date" id="date" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="drivers" class="form-label">Chofer</label>
+                                <select name="drivers" id="drivers" class="form-control" required>
+                                    {% for driver in allDrivers %}
+                                        <option value="{{ driver.id }}">{{ driver.user }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Cargar Kilometraje</button>
+                    </form>
+                {% else %}
+                    <h3>Agregar Kilometraje</h3>
+                    <form action="" method="post">{% csrf_token %}
+                        <div class="mb-3">
+                            <label for="km" class="form-label">Kilometraje</label>
+                            <input type="number" name="km" id="km" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Fecha</label>
+                            <input type="date" name="date" id="date" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="drivers" class="form-label">Chofer</label>
+                            <select name="drivers" id="drivers" class="form-control" required>
+                                {% for driver in allDrivers %}
+                                    <option value="{{ driver.id }}">{{ driver.user }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Cargar Kilometraje</button>
+                    </form>
+                {% endif %}
+            </div>
         </div>
     </div>
 </section>
