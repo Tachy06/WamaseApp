@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('PanelAdmin.urls')),
     path('', include('pwa.urls')),
     path('', include('Expenses.urls')),
+    path('', include('Maintenance.urls')),
 ]

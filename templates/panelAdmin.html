@@ -54,13 +54,15 @@
                             <h3 style="font-weight: normal;">Vehiculos registrados: <span style="font-weight:large; font-style: italic;">{{count_cars}}</span></h3>
                         </div>
                         <div class="buttons-centered">
-                            <a href="{% url 'Registrar_usuario' %}" class="btn btn-outline-primary">Ingresar nuevo auto</a>
-                            <a href="{% url 'Create_admin' %}" class="btn btn-outline-primary">Ingresar un administrador</a>
+                            <a href="{% url 'Registrar_usuario' %}" class="btn btn-outline-primary">Ingresar vehiculo</a>
+                            <a href="{% url 'Create_admin' %}" class="btn btn-outline-primary">Administrador</a>
+                            <a href="{% url 'createChofer' %}" class="btn btn-outline-primary">Agregar chofer</a>
                         </div>
                         
                         <div class="buttons-centered">
-                            <a href="{% url 'createChofer' %}" class="btn btn-outline-primary">Agregar chofer</a>
+                            <a href="{% url 'Mensajes' %}" class="btn btn-outline-primary">Mensajes</a>
                             <a href="{% url 'Change_Prices' %}" class="btn btn-outline-primary">Actualizar costos</a>
+                            <a href="{% url 'Reportes_Pendientes' %}" class="btn btn-outline-primary">Mantenimientos pendientes</a>
                         </div>
                         <div class="buttons-centered">
                             <a href="{% url 'Generate_All_Expenses' %}" class="btn btn-outline-primary">Reporte mensual</a>
@@ -120,7 +122,7 @@
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                         </form>
-                                        <a href="{% url 'Expenses_Admin' car_info.user.id %}" class="btn btn-outline-success btn-gastos">Ver Gastos</a>
+                                        <a href="{% url 'Expenses_Admin' car_info.user.id %}" class="btn btn-outline-primary btn-gastos">Ver Gastos</a>
                                     </div>
                                 </div>
                             {% endif %}

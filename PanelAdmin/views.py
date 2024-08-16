@@ -11,6 +11,7 @@ from weasyprint import HTML
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
+from datetime import datetime
 
 # Create your views here.
 def viewAdmin(request):
@@ -70,6 +71,10 @@ class registrarUsuarioAdmin(LoginRequiredMixin, View):
         code = request.POST.get('code')
         code_filter_oil = request.POST.get('code_filter_oil')
         code_filter_air = request.POST.get('code_filter_air')
+        monthRevision = request.POST.get('monthRevision')
+        monthRevision_object = datetime.strptime(monthRevision, '%Y-%m')
+        monthExpiration = request.POST.get('monthExpiration')
+        monthExpiration_object = datetime.strptime(monthExpiration, '%Y-%m')
         
         if car == '':
             messages.error(request, 'No deje el nombre en blanco')
@@ -103,10 +108,6 @@ class registrarUsuarioAdmin(LoginRequiredMixin, View):
             messages.error(request, 'Usuario existente')
             return redirect('/register_admin/')
         
-        if correo.isspace():
-            messages.error(request, 'No digite solo espacios')
-            return redirect('/register_admin/')
-        
         if code_filter_oil == '':
             messages.error(request, 'No deje el código en blanco')
             return redirect('/register_admin/')
@@ -128,25 +129,35 @@ class registrarUsuarioAdmin(LoginRequiredMixin, View):
             messages.error(request, 'No digite solo espacios')
             return redirect('/register_admin/')
         
+        if monthRevision == '':
+            messages.error(request, 'No deje el mes de revision en Blanco')
+            return redirect('/register_admin/')
+        elif monthRevision == None:
+            messages.error(request, 'La revisión técnica es obligatoria')
+            return redirect('/register_admin/')
+        elif monthRevision.isspace():
+            messages.error(request, 'No digite solo espacios')
+            return redirect('/register_admin/')
+        
         elif correo == '':
             if code == '1982':
                 User.objects.create_user(first_name=car, username=license_plate, email='Nothing', password=license_plate, last_name=oil)
                 usuario = User.objects.get(username=license_plate)
-                moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property, code_filter_oil=code_filter_oil, code_filter_air=code_filter_air)
-                messages.success(request, 'Todo correcto')
+                moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property, code_filter_oil=code_filter_oil, code_filter_air=code_filter_air, technique_revision=f'{monthRevision_object.year}-{monthRevision_object.month}-1', expiration_date=f'{monthExpiration_object.year}-{monthExpiration_object.month}-1')
+                messages.success(request, 'Guardado correctamente')
                 return redirect('/admin/')
             else:
                 messages.error(request, 'Código de seguridad incorrecto')
-                return redirect('/register_admin/')
+                return redirect('/admin/')
         if code == '1982':
             User.objects.create_user(first_name=car, username=license_plate, email=correo, password=license_plate, last_name=oil)
             usuario = User.objects.get(username=license_plate)
-            moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property, code_filter_oil=code_filter_oil, code_filter_air=code_filter_air)
-            messages.success(request, 'Todo correcto')
+            moreInfo = moreInformation.objects.create(user=usuario, year=year, vin=vin, property=property, code_filter_oil=code_filter_oil, code_filter_air=code_filter_air, technique_revision=f'{monthRevision_object.year}-{monthRevision_object.month}-1', expiration_date=f'{monthExpiration_object.year}-{monthExpiration_object.month}-1')
+            messages.success(request, 'Guardado correctamente')
             return redirect('/admin/')
         else:
             messages.error(request, 'Código de seguridad incorrecto')
-            return redirect('/register_admin/')
+            return redirect('/admin/')
     
 class editUser(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -154,10 +165,25 @@ class editUser(LoginRequiredMixin, View):
         user = get_object_or_404(User, pk=user_id)
         # Obtener información adicional del usuario
         info = moreInformation.objects.get(user=user)
+
+        if info.technique_revision == None:
+            date_technique_revision_format = ""
+        else:
+            date_technique_revision = datetime.strptime(str(info.technique_revision), '%Y-%m-%d')
+            date_technique_revision_format = f'{date_technique_revision.year:04d}-{date_technique_revision.month:02d}'
+
+        if info.expiration_date == None:
+            date_experited_format = ""
+        else:
+            date_experited = datetime.strptime(str(info.expiration_date), '%Y-%m-%d')
+            date_experited_format = f'{date_experited.year:04d}-{date_experited.month:02d}'
+
         user_info = {
             'user': user,
             'more_info': info,
             'oil': Change_Oil.objects.filter(car=user).last(),
+            'date_technique_revision_format': date_technique_revision_format,
+            'date_experited_format': date_experited_format
         }
         url = '/admin/'
         return render(request, 'edit_user_admin.html', {'user_info': user_info, 'url': url})
@@ -165,13 +191,16 @@ class editUser(LoginRequiredMixin, View):
         car = request.POST.get('brand')
         year = request.POST.get('year')
         license_plate = request.POST.get('license_plate')
-        correo = request.POST.get('email')
         oil = request.POST.get('oil')
         vin = request.POST.get('vin')
         property = request.POST.get('property')
         code = request.POST.get('code')
         code_filter_oil = request.POST.get('code_filter_oil')
         code_filter_air = request.POST.get('code_filter_air')
+        technique_revision = request.POST.get('technique_revision')
+        technique_revision_object = datetime.strptime(technique_revision, '%Y-%m')
+        expiration_date = request.POST.get('monthExpiration')
+        expiration_date_object = datetime.strptime(expiration_date, '%Y-%m')
 
         car_id = User.objects.get(id=user_id)
         more = moreInformation.objects.get(user_id=car_id)
@@ -204,10 +233,6 @@ class editUser(LoginRequiredMixin, View):
             messages.error(request, 'No digite solo espacios')
             return redirect('/register/')
         
-        if correo.isspace():
-            messages.error(request, 'No digite solo espacios')
-            return redirect('/register/')
-        
         if code_filter_oil == '':
             messages.error(request, 'No deje el código en blanco')
             return redirect('/register/')
@@ -222,7 +247,21 @@ class editUser(LoginRequiredMixin, View):
             messages.error(request, 'No digite solo espacios')
             return redirect('/register/')
         
-        elif correo == '':
+        if technique_revision == '':
+            messages.error(request, 'No deje el nombre en blanco')
+            return redirect('/register/')
+        elif technique_revision.isspace():
+            messages.error(request, 'No digite solo espacios')
+            return redirect('/register/')
+        
+        if expiration_date == '':
+            messages.error(request, 'No deje el nombre en 白')
+            return redirect('/register/')
+        elif expiration_date.isspace():
+            messages.error(request, 'No digite solo espacios')
+            return redirect('/register/')
+        
+        if code == '1982':
             car_id.first_name = car
             car_id.last_name = oil
             car_id.username = license_plate
@@ -233,22 +272,14 @@ class editUser(LoginRequiredMixin, View):
             more.property = property
             more.code_filter_oil = code_filter_oil
             more.code_filter_air = code_filter_air
+            more.technique_revision = technique_revision_object
+            more.expiration_date = expiration_date_object
             more.save()
             messages.success(request, 'Cambio exitoso')
             return redirect('/admin/')
-        car_id.first_name = car
-        car_id.last_name = oil
-        car_id.username = license_plate
-        car_id.email = correo
-        car_id.save()
-        more.year = year
-        more.vin = vin
-        more.property = property
-        more.code_filter_oil = code_filter_oil
-        more.code_filter_air = code_filter_air
-        more.save()
-        messages.success(request, 'Cambio exitoso')
-        return redirect('/admin/')
+        else:
+            messages.error(request, 'Código de seguridad incorrecto')
+            return redirect('/register/')
 
 class look_for(LoginRequiredMixin, View):
     login_url = '/login/'

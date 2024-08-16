@@ -36,12 +36,21 @@
             </div>
         </div>
     </section>
+    <section class="pagePrices">
+        <div class="container">
+            <div class="text">
+                <h1>Gastos</h1>
+                <a href="{% url 'Expenses' %}" class="btn btn-primary" style="margin-bottom: 10px;">Agregar gastos</a>
+            </div>
+        </div>
+    </section>
 {% endif %}
-<section class="pagePrices">
+
+<section class="pageMante">
     <div class="container">
         <div class="text">
-            <h1>Gastos</h1>
-            <a href="{% url 'Expenses' %}" class="btn btn-primary" style="margin-bottom: 10px;">Agregar gastos</a>
+            <h1>Mantenimientos</h1>
+            <a href="{% url 'Mantenimiento' %}" class="btn btn-primary" style="margin-bottom: 10px;">Agregar reporte</a>
         </div>
     </div>
 </section>

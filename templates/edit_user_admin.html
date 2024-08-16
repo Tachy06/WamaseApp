@@ -14,28 +14,45 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    {% if request.user.is_superuser %}
-        <section class="back">
-            <div class="contenedor ms-2">
-                <a href="/admin/">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: black;">
-                        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-                    </svg>
-                </a>
-            </div>
-        </section>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
-                    <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <style>
+        .custom-input1 {
+            height: 2.4rem; /* Ajusta este valor según sea necesario */
+        }
+        .hidden {
+            display: none;
+        }
+        .form-group-inline {
+            display: flex;
+            align-items: center;
+            gap: 3rem; /* Ajusta el espacio entre los elementos según sea necesario */
+            margin: auto;
+        }
+        .form-group-inline > * {
+            margin-right: 2rem; /* Ajusta el espacio entre los elementos según sea necesario */
+        }
+    </style>
+        <section class="register">
+            {% if request.user.is_superuser %}
+            <section class="back">
+                <div class="contenedor ms-2">
+                    <a href="/admin/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 15px; margin-left: 10px; color: rgb(255, 255, 255);">
+                            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                    </a>
                 </div>
-            {% endfor %}
-        {% endif %}
-        <section class="modified_user_admin">
+            </section>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+                        <p style="font-size: 17px; font-weight: bold;">{{ message }}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
             <div class="container">
                 <h3 class="mb-2">Editar vehículo</h3>
-                <div class="card">
+                <div class="card" style="margin-bottom: 10px;">
                     <div class="card-body">
                         <form action="" method="POST">
                             {% csrf_token %}
@@ -87,11 +104,57 @@
                                     <input type="text" id="code_filter_air" name="code_filter_air" class="form-control text-center" value="{{user_info.more_info.code_filter_air}}" required>
                                 </div>
                             </div>
-                            <div class="row mb-1 d-flex justify-content-center align-items-center text-center">
+                            <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="correo" class="form-label">Correo a asociar</label>
-                                    <input type="email" name="email" id="email" class="form-control text-center" value="{{user_info.user.email}}" required>
+                                    <label for="technique_revision" class="form-label">Revision tecnica</label>
+                                    <input type="month" id="technique_revision" name="technique_revision" class="form-control text-center" value="{{user_info.date_technique_revision_format}}" required>
                                 </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="code" class="form-label">Codigo de seguridad</label>
+                                    <input type="text" id="code" name="code" class="form-control custom-input" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="container">
+                                    <div class="mb-3">
+                                        <div class="form-group-inline">
+                                            <label for="weightCard" class="form-label mb-0" id="labelWeight">Tarjeta de peso:</label>
+                                            <div id="weightCardOptions">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="yes" name="weightCard" value="Yes" style="border-style: solid; border-color: black;">
+                                                    <label class="form-check-label" for="yes">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="no" name="weightCard" value="No" style="border-style: solid; border-color: black;">
+                                                    <label class="form-check-label" for="no">No</label>
+                                                </div>
+                                            </div>
+                                            <div id="monthInput" class="hidden ">
+                                                <label for="monthExpiration" class="form-label ">Fecha de vencimiento</label>
+                                                <input type="month" id="monthExpiration" name="monthExpiration" class="form-control custom-input1" placeholder="Fecha de vencimiento" value="{{user_info.date_experited_format}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <script>
+                                    document.querySelectorAll('input[name="weightCard"]').forEach(function(radio) {
+                                        radio.addEventListener('change', function() {
+                                            const weightCardOptions = document.getElementById('weightCardOptions');
+                                            const monthInput = document.getElementById('monthInput');
+                                            const labelWeight = document.getElementById('labelWeight');
+                                            
+                                            if (document.getElementById('yes').checked) {
+                                                weightCardOptions.classList.add('hidden');
+                                                monthInput.classList.remove('hidden');
+                                                labelWeight.classList.add('hidden');
+                                            } else {
+                                                weightCardOptions.classList.remove('hidden');
+                                                monthInput.classList.add('hidden');
+                                            }
+                                        });
+                                    });
+                                </script>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 d-flex justify-content-center width 100px">
@@ -104,6 +167,21 @@
             </div>
         </section>
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script>
+            // Obtener la fecha actual en formato YYYY-MM
+            const today = new Date();
+            const month = today.getMonth() + 1; // Los meses en JavaScript son de 0 a 11
+            const year = today.getFullYear();
+            const currentMonth = year + '-' + (month < 10 ? '0' + month : month);
+        
+            // Establecer el valor mínimo del campo de entrada
+            const monthInputs = document.querySelectorAll('input[type="month"]');
+
+            // Establecer el atributo "min" para cada uno
+            monthInputs.forEach(input => {
+                input.setAttribute('min', currentMonth);
+            });
+        </script>
     {% endif %}
 </body>
 </html>

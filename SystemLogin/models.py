@@ -12,4 +12,6 @@ class moreInformation(models.Model):
     property = models.CharField(max_length=255, null=False)
     code_filter_oil = models.CharField(max_length=255, null=False)
     code_filter_air = models.CharField(max_length=255, null=False)
+    technique_revision = models.DateField(null=True, blank=True)
+    expiration_date = models.DateField(null=True, blank=True)
 

@@ -12,14 +12,14 @@
                 {% endfor %}
             {% endif %}
             <div class="container mt-3">
-                <div class="card my-5" style="box-shadow: 0px 0px 5px black; max-width: 40rem; margin: auto;">
+                <div class="card my-5" style="box-shadow: 0px 0px 5px black; max-width: 60rem; margin: auto;">
                     <div class="card-body">
                         <h3 class="mb-4 text-center" style="font-size: 22px;">Agregar cambio de aceite</h3>
                         <form action="" method="post">
                             {% csrf_token %}
-                            <div class="mb-3 text-center">
-                                <label for="date" class="form-label">Fecha del cambio</label>
-                                <input type="date" name="date" id="date" value="{{ fecha|date:'Y-m-d' }}" class="form-control d-inline-block mx-auto" style="width: 200px;">
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Fecha del cambio </label>
+                                <input type="date" name="date" id="date" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label for="car" class="form-label">Vehiculo a escoger</label>

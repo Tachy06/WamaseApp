@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import *
 from Change_the_oil.models import *
 from SystemLogin.models import *
+from datetime import datetime
 
 # Create your views here.
 class Home(LoginRequiredMixin, View):
@@ -14,9 +15,25 @@ class Home(LoginRequiredMixin, View):
         date = Change_Oil.objects.filter(car=car).last()
         formatted_date = date.date_of_change.strftime('%d/%m/%Y') if date else None
         km_journey = KMCar.objects.filter(license_plate=car).last()
+
         if car.last_name == '':
             return render(request, 'index.html', {'car': car.last_name})
         try:
+            moreInfo = moreInformation.objects.get(user=car)
+            if moreInfo.technique_revision.month < datetime.now().month:
+                if moreInfo.technique_revision.year == datetime.now().year:
+                    messages.warning(request, 'La revisión tecnica es el otro mes')
+            elif moreInfo.technique_revision.month == datetime.now().month:
+                if moreInfo.technique_revision.year == datetime.now().year:
+                    messages.error(request, 'La revisión tecnica es este mes')
+        
+            if moreInfo.expiration_date.month < datetime.now().month:
+                if moreInfo.expiration_date.year == datetime.now().year:
+                    messages.warning(request, 'La fecha de expiración de la tarjeta de peso es el otro mes')
+            elif moreInfo.expiration_date.month >= datetime.now().month:
+                if moreInfo.expiration_date.year == datetime.now().year:
+                    messages.error(request, 'Tarjeta de peso expirada')
+
             if int(car.last_name) == 1 and km_journey:
                 if km_journey.total_journey >= 10000.0:
                     messages.warning(request, '10000 Km recorridos, es hora de cambiar el aceite')
@@ -26,6 +43,7 @@ class Home(LoginRequiredMixin, View):
             return render(request, 'index.html', {'km_journey': km_journey.total_journey, 'date': formatted_date})
         except:
             return render(request, 'index.html', {'km_journey': km_journey.total_journey if km_journey else None, 'date': formatted_date, 'car': car.last_name})
+
 
 class KMCarView(LoginRequiredMixin, View):
     login_url = '/login/'
