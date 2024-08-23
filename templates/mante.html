@@ -30,41 +30,34 @@
                     <h3 style="font-weight: 75;">Reporte de Mantenimientos </h3>
                     <form action="" method="post">
                         {% csrf_token %}
-                            <div class="date-input-wrapper mb-3 d-flex flex-column align-items-center">
-                                <label for="date" class="form-label mb-1">Fecha</label>
-                                <input type="date" name="date" id="date" class="form-control" style="width: 200px;" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="carID" class="form-label">Vehiculo a escoger</label>
-                                <select name="carID" id="carID" class="form-control text-center" required>
-                                    <option value="0" disabled selected>Seleccionar vehículo</option>
-                                    {% for car in users %}
-                                        {% if car.is_superuser %}
-                                        {% else %}
-                                            <option value="{{ car.id }}">{{ car.username }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class=" mb-3">
-                                <label for="maintenance" class="form-label">Mantenimiento pendiente</label>
-                                <input type="text" name="maintenance" id="maintenance" class="form-control text-center-input" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Breve descripción</label>
-                                <textarea name="description" id="description" class="form-control text-center" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="driver" class="form-label">Chofer</label>
-                                <select name="driver" id="driver" class="form-control" required>
-                                    <option value="0" selected disabled>Seleccione el conductor...</option>
-                                    {% for driver in allDrivers %}
-                                        <option value="{{ driver.id }}">{{ driver.user }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Agregar reporte</button>
+                        <div class="date-input-wrapper mb-3 d-flex flex-column align-items-center">
+                            <label for="date" class="form-label mb-1">Fecha</label>
+                            <input type="date" name="date" id="date" class="form-control" style="width: 200px;" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="carID" class="form-label">Vehículo a escoger</label>
+                            <select name="carID" id="carID" class="form-control text-center" required>
+                                <option value="0" disabled selected>Seleccionar vehículo</option>
+                                {% for car in users %}
+                                    {% if not car.is_superuser %}
+                                        <option value="{{ car.id }}">{{ car.username }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="maintenance" class="form-label">Mantenimiento pendiente</label>
+                            <input type="text" name="maintenance" id="maintenance" class="form-control text-center-input" required>
+                        </div>
+                        <div class="mb-3 d-flex flex-column align-items-center">
+                            <label for="description" class="form-label">Breve descripción</label>
+                            <textarea name="description" id="description" class="form-control text-center" style="width: 320px; height: 50px;" required></textarea>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px; width: 200px;">Agregar reporte</button>
+                        </div>
                     </form>
+                    
                 {% else %}
                     <h3 style="font-weight: 65;">Solicitud de Mantenimiento </h3>
                     <form action="" method="post">{% csrf_token %}
@@ -73,13 +66,13 @@
                             <input type="date" name="date" id="date" class="form-control" style="width: 200px;" required>
                         </div>
                         <div class="mb-3">
-                            <label for="maintenance" class="form-label">Especificaciones</label>
+                            <label for="maintenance" class="form-label">Mantenimiento ha solicitar</label>
                             <input type="text" name="maintenance" id="maintenance" class="form-control text-center" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Breve descripción</label>
-                            <textarea name="description" id="description" class="form-control text-center" required></textarea>
+                            <textarea name="description" id="description" class="form-control text-center"  style="height: 50px;"></textarea>
                         </div>
                         
                         <div class="mb-3">
@@ -91,7 +84,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Solictar</button>
+                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Solicitar</button>
                     </form>
                 {% endif %}
             </div>

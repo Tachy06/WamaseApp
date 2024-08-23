@@ -36,6 +36,54 @@
             input[type="number"] {
                 -moz-appearance: textfield;
             }
+
+            .buttons-centered {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .users {
+                padding: 10px;
+                border: 1px solid #ccc;
+                margin-bottom: 15px;
+                border-radius: 5px;
+            }
+
+            .look-for .form-control {
+                margin-bottom: 10px;
+            }
+
+            .btn-centered {
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            /* Media query for mobile devices */
+            @media (max-width: 600px) {
+                .buttons-centered {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .users {
+                    font-size: 14px;
+                }
+
+                .look-for {
+                    text-align: center;
+                }
+
+                .cars .users {
+                    margin-bottom: 20px;
+                }
+
+                .cars .buttons-centered {
+                    flex-direction: column;
+                    width: 100%;
+                }
+            }
         </style>
         {% block content %}
             <main class="admin">
@@ -57,14 +105,11 @@
                             <a href="{% url 'Registrar_usuario' %}" class="btn btn-outline-primary">Ingresar vehiculo</a>
                             <a href="{% url 'Create_admin' %}" class="btn btn-outline-primary">Administrador</a>
                             <a href="{% url 'createChofer' %}" class="btn btn-outline-primary">Agregar chofer</a>
-                        </div>
-                        
-                        <div class="buttons-centered">
                             <a href="{% url 'Mensajes' %}" class="btn btn-outline-primary">Mensajes</a>
+                        </div>
+                        <div class="buttons-centered">
                             <a href="{% url 'Change_Prices' %}" class="btn btn-outline-primary">Actualizar costos</a>
                             <a href="{% url 'Reportes_Pendientes' %}" class="btn btn-outline-primary">Mantenimientos pendientes</a>
-                        </div>
-                        <div class="buttons-centered">
                             <a href="{% url 'Generate_All_Expenses' %}" class="btn btn-outline-primary">Reporte mensual</a>
                         </div>
                     </div>
